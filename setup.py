@@ -8,8 +8,8 @@ setup(
     description="xmlenc and xmldsig XML encryption and signing using PGP keys",
     install_requires=["cryptography", "lxml", "pgp", "xmlsec"],
     license="MIT",
-    name="xmlsec-pgp",
-    packages=["xmlsec-pgp"],
+    name="xmlsec_pgp",
+    packages=["xmlsec_pgp"],
     version="0.1",
     classifiers=[
         "Development Status :: 3 - Alpha",
