@@ -75,16 +75,20 @@ def test_encrypt_decrypt_xml():
     data = template.find('./Data')
 
     assert data is not None
-    # Encrypt!
+    # Encrypt - this takes info from template, then goes about encrypting
     enc_ctx = xmlsec_pgp.EncryptionContext(manager)
+    # add session key
     enc_ctx.key = xmlsec.Key.generate(
         xmlsec.KeyData.AES, 128, xmlsec.KeyDataType.SESSION
     )
-    enc_datsa = enc_ctx.encrypt_xml(enc_data, data)
+    # enc_data is the filled template
+    # actually encrypt the 'data' part of that sample
+    enc_data = enc_ctx.encrypt_xml(enc_data, data)
     assert enc_data is not None
     enc_method = xmlsec.tree.find_child(
         enc_data, xmlsec.Node.ENCRYPTION_METHOD, xmlsec.Namespace.ENC
     )
+    etree.dump(enc_data)
     assert enc_method is not None
     assert enc_method.get("Algorithm") == \
         "http://www.w3.org/2001/04/xmlenc#aes128-cbc"
